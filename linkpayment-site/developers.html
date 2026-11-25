@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API 연동 매뉴얼 | 링크페이먼트</title>
+<meta name="description" content="링크페이먼트 신용카드 결제창 연동 방법, 요청·응답 파라미터, 에러 코드">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/site.js" defer></script>
+</head>
+<body data-page="developers">
+<div class="site t-light">
+<a class="skip" href="#main">본문 바로가기</a>
+<div class="top">
+<header class="hdr" style="background-color: transparent">
+<div class="wrap hdr-in">
+<a class="logo" href="index.html" aria-label="Link Payment 홈으로">
+<svg class="logo-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 722 120" fill="currentColor" aria-hidden="true">
+<path d="M140.831 4.38832H163.395L146.994 81.4977H178.332L175.773 90.2221C174.05 96.1255 168.618 100.2 162.454 100.2H120.67L140.831 4.38832Z"></path>
+<path d="M212.074 22.6731H221.423L205.022 100.2H182.72L196.457 35.3157C198.023 27.9495 204.552 22.6208 212.074 22.6208V22.6731ZM203.873 0.0522526H226.176L224.609 7.47063C223.355 13.5307 217.976 17.8668 211.812 17.8668H200.165L203.926 0L203.873 0.0522526Z"></path>
+<path d="M225.183 44.5103C227.325 34.1663 229.205 24.5016 229.518 22.6208H251.246C251.09 23.9269 250.672 27.2181 250.359 28.6809C253.075 25.4941 257.41 21.4715 265.297 21.4715C276.787 21.4715 279.817 29.3601 277.362 40.5921L264.826 100.148H242.367L253.858 45.3462C254.433 42.8908 254.746 39.7563 251.978 39.7563C249.366 39.7563 247.956 41.637 246.964 46.2343L235.577 100.2H213.275L225.079 44.5103H225.183Z"></path>
+<path d="M304.417 53.8616H305.148C309.745 44.667 316.221 30.5616 319.825 22.6208H342.546C337.218 31.711 330.167 43.0475 325.571 50.8316C325.414 66.3475 326.72 83.9008 326.72 100.2H304.992C305.148 91.4237 305.148 78.8856 305.148 71.8329C303.007 75.5944 299.403 80.7663 298.515 82.0724L294.65 100.2H272.922L294.076 0.0522526H315.804L304.417 53.8616Z"></path>
+<path d="M121.185 0.0344526L100.109 21.1147H31.579V20.7703C31.579 9.30012 40.8771 0 52.3448 0H121.185V0.0344526Z"></path>
+<path d="M88.1596 47.3273C88.1596 47.3273 88.0907 47.4995 87.9874 47.4995H5.23449L26.3101 26.4192H67.2217C78.7582 26.4192 88.1251 35.7882 88.1251 47.3273H88.1596Z"></path>
+<path d="M115.916 52.7696L94.8404 73.8499H52.5169C40.9804 73.8499 31.6135 64.4808 31.6135 52.9418C31.6135 52.8385 31.6824 52.7696 31.7857 52.7696H115.95H115.916Z"></path>
+<path d="M88.1596 79.1199C88.1596 84.9411 85.7834 90.2112 81.9953 94.0346C78.1728 97.8579 72.9038 100.2 67.0839 100.2H0L21.0757 79.1199H88.1596Z"></path>
+<path d="M399.826 20.3547C393.329 20.3547 389.344 23.7339 386.485 28.4129C387.178 25.3803 387.525 22.4343 387.611 21.4811H377.995C377.216 25.9868 375.83 32.5721 373.664 42.5367L357.378 118.96H367.253L373.751 88.4602C374.877 91.6662 377.216 95.4788 384.579 95.4788C396.101 95.4788 401.212 86.2941 404.331 71.3906L410.135 43.8364C412.907 30.9258 411.174 20.3547 399.826 20.3547ZM400.172 44.0097L394.195 71.9104C392.462 79.9687 389.864 86.6406 383.54 86.6406C375.137 86.6406 376.003 77.9758 377.909 68.7911L382.413 47.5623C384.579 37.2511 387.611 28.8462 395.235 28.8462C402.078 28.8462 401.905 35.7781 400.172 43.923V44.0097Z"></path>
+<path d="M445.133 20.3547C430.319 20.3547 427.547 30.8391 425.555 40.2838L425.382 41.2369H435.084L435.517 39.5906C437.163 32.832 438.549 28.4129 444.18 28.4129C449.811 28.4129 451.11 32.2255 449.551 39.244L447.212 50.1617C446.173 50.335 445.306 50.4217 444.353 50.595C427.461 53.281 419.231 58.0467 415.852 73.99C413.513 85.1676 415.592 95.4788 426.335 95.4788C431.965 95.4788 435.777 93.8324 439.329 87.8537C438.896 90.0199 438.549 92.5327 438.289 94.3523H447.905C448.252 91.8395 449.898 83.6945 450.851 79.1888L459.427 38.4642C461.766 27.3732 457.348 20.3547 445.133 20.3547ZM443.66 67.2314C440.975 80.2286 437.423 86.6406 430.926 86.6406C424.948 86.6406 424.169 80.9218 425.728 73.8167C428.067 63.5922 433.178 60.5595 443.054 58.7398C443.92 58.5665 444.786 58.4799 445.653 58.3067L443.66 67.3181V67.2314Z"></path>
+<path d="M503.088 21.4811C495.898 39.5906 484.289 69.3976 480.131 82.5681H479.958C480.911 74.6831 481.691 43.3165 482.124 21.4811H472.335L471.988 96.6052C467.137 108.216 464.971 110.729 459.947 110.729C457.608 110.729 456.568 110.382 455.442 110.209L453.363 119.22C455.009 119.653 457.694 120 459.773 120C467.83 120 472.854 118.874 481.344 98.3381L513.05 21.4811H502.915H503.088Z"></path>
+<path d="M569.879 20.3547C563.382 20.3547 558.617 23.734 555.499 28.2397C554.806 23.2141 551.514 20.3547 545.969 20.3547C540.425 20.3547 535.921 22.8675 532.802 28.0664C533.235 26.0735 533.668 23.1275 533.928 21.5678H524.399C523.706 25.1204 522.926 29.3661 520.154 42.5367L509.152 94.439H519.028L529.77 43.6631C531.416 35.9514 534.708 28.9329 541.031 28.9329C545.623 28.9329 547.096 31.7056 545.19 40.2838L533.755 94.439H543.804L554.632 43.1432C556.278 35.6048 559.31 28.9329 565.548 28.9329C571.179 28.9329 571.352 33.4386 570.139 39.6773L558.444 94.439H568.406L580.361 38.1176C583.133 24.8604 577.243 20.3547 569.792 20.3547H569.879Z"></path>
+<path d="M614.493 20.3547C599.68 20.3547 595.868 32.1388 593.529 43.5764L587.985 69.6576C585.386 82.1349 585.472 95.4788 601.932 95.4788C616.832 95.4788 619.951 84.821 622.203 75.1164L622.636 73.2102H612.847L612.414 75.203C611.028 81.615 609.036 87.1605 602.885 87.1605C595.868 87.1605 595.521 80.4886 597.341 72.0837C597.774 69.9175 599.506 61.5993 599.94 59.8663H625.668C626.188 57.8734 628.614 46.0892 629.047 44.2696C631.472 33.092 630.779 20.3547 614.493 20.3547ZM620.124 41.1503C619.777 42.6233 618.218 50.075 617.872 51.6347H601.672L603.838 41.6702C605.137 35.3449 607.303 28.3264 613.973 28.3264C620.644 28.3264 621.51 34.2184 620.124 41.0637V41.1503Z"></path>
+<path d="M670.542 20.3547C663.958 20.3547 659.54 23.474 656.335 28.2397C657.028 25.207 657.288 23.0408 657.548 21.5678H647.932C647.326 24.6871 646.459 29.1062 643.341 43.7497L632.599 94.439H642.474L652.783 46.2625C655.382 33.6119 659.714 28.9329 665.518 28.9329C671.322 28.9329 672.275 32.9187 670.802 39.9372L659.28 94.439H669.156L681.198 37.6843C683.71 25.8135 678.512 20.3547 670.542 20.3547Z"></path>
+<path d="M711.951 21.4811L714.03 12.1231H704.241L702.162 21.4811H693.932L692.113 30.0593H700.169L689.081 81.2684C686.655 92.3594 691.766 95.3054 699.13 95.3054C702.075 95.3054 704.501 95.0455 706.84 94.3523L708.572 86.554C707.013 86.8139 705.367 87.0739 703.461 87.0739C699.043 87.0739 698.35 84.6477 699.39 79.6221L710.218 30.0593H720.181L722 21.4811H711.951Z"></path>
+</svg>
+</a>
+<nav class="gnb" aria-label="주 메뉴">
+
+<div class="gnb-item">
+<a class="gnb-a" href="payments.html">결제 서비스</a>
+
+</div>
+
+<div class="gnb-item">
+<a class="gnb-a" href="solutions.html">플랫폼·솔루션<svg class="ico gnb-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></a>
+
+<div class="gnb-drop">
+<ul class="gnb-sub" aria-label="플랫폼·솔루션 하위 메뉴">
+
+<li><a class="gnb-sub-a" href="solutions-linku.html"><span class="gs-name">LinkU</span><span class="gs-desc">SNS·라이브 판매자·공동구매 · 링크 판매·결제와 셀러 정산</span></a></li>
+
+<li><a class="gnb-sub-a" href="solutions-sportsnote.html"><span class="gs-name">스포츠노트 (구 케어아이)</span><span class="gs-desc">도장·학원 · 출결·학생 관리와 무료 출결문자</span></a></li>
+
+<li><a class="gnb-sub-a" href="solutions-table-order.html"><span class="gs-name">테이블오더</span><span class="gs-desc">매장 주문 · 테이블에서 메뉴 확인과 주문</span></a></li>
+
+<li><a class="gnb-sub-a" href="solutions-smart-order.html"><span class="gs-name">스마트오더</span><span class="gs-desc">모바일 주문 · 모바일 주문 접수</span></a></li>
+
+<li><a class="gnb-sub-a" href="solutions-kiosk.html"><span class="gs-name">키오스크</span><span class="gs-desc">무인 주문 · 현장 주문과 결제</span></a></li>
+
+<li class="gs-all"><a class="gnb-sub-a" href="solutions.html"><span class="gs-name">솔루션 전체 보기</span><span class="gs-desc">업종별 운영 솔루션 한눈에 보기</span></a></li>
+
+</ul>
+</div>
+
+</div>
+
+<div class="gnb-item">
+<a class="gnb-a" href="onboarding.html">도입 안내</a>
+
+</div>
+
+<div class="gnb-item">
+<a class="gnb-a" href="developers.html" aria-current="page">API 연동</a>
+
+</div>
+
+<div class="gnb-item">
+<a class="gnb-a" href="company.html">회사소개</a>
+
+</div>
+
+<div class="gnb-item">
+<a class="gnb-a" href="contact.html?type=support">고객지원</a>
+
+</div>
+
+</nav>
+<div class="hdr-act">
+<button type="button" class="icon-btn" aria-label="다크 모드로 전환" title="다크 모드로 전환" data-act="toggleTheme">
+
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" data-when="isDark" hidden><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"></path></svg>
+
+
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" data-when="isLight"><path d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8Z"></path></svg>
+
+</button>
+<a class="btn btn-primary btn-sm hdr-cta" href="contact.html?type=sales">도입 문의</a>
+<button type="button" id="menu-btn" class="icon-btn menu-btn" aria-expanded="false" aria-controls="m-menu" aria-label="메뉴 열기" data-act="toggleMenu">
+
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" data-when="menuClosed"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+
+
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" data-when="menuOpen" hidden><path d="M6 6l12 12M18 6L6 18"></path></svg>
+
+</button>
+</div>
+</div>
+
+<div id="m-menu" class="m-menu" data-act="menuKey" data-when="menuOpen" hidden>
+<div class="wrap">
+<nav class="m-nav" aria-label="모바일 메뉴">
+
+<a class="m-link" href="payments.html">결제 서비스<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+
+
+<a class="m-link" href="solutions.html">플랫폼·솔루션<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+
+<ul class="m-sub" aria-label="플랫폼·솔루션 하위 메뉴">
+
+<li><a class="m-sub-a" href="solutions-linku.html">LinkU<span class="gs-desc">SNS·라이브 판매자·공동구매 · 링크 판매·결제와 셀러 정산</span></a></li>
+
+<li><a class="m-sub-a" href="solutions-sportsnote.html">스포츠노트 (구 케어아이)<span class="gs-desc">도장·학원 · 출결·학생 관리와 무료 출결문자</span></a></li>
+
+<li><a class="m-sub-a" href="solutions-table-order.html">테이블오더<span class="gs-desc">매장 주문 · 테이블에서 메뉴 확인과 주문</span></a></li>
+
+<li><a class="m-sub-a" href="solutions-smart-order.html">스마트오더<span class="gs-desc">모바일 주문 · 모바일 주문 접수</span></a></li>
+
+<li><a class="m-sub-a" href="solutions-kiosk.html">키오스크<span class="gs-desc">무인 주문 · 현장 주문과 결제</span></a></li>
+
+<li><a class="m-sub-a" href="solutions.html">솔루션 전체 보기<span class="gs-desc">업종별 운영 솔루션 한눈에 보기</span></a></li>
+
+</ul>
+
+
+<a class="m-link" href="onboarding.html">도입 안내<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+
+
+<a class="m-link" href="developers.html" aria-current="page">API 연동<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+
+
+<a class="m-link" href="company.html">회사소개<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+
+
+<a class="m-link" href="contact.html?type=support">고객지원<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+
+
+</nav>
+<div class="m-foot">
+<a class="btn btn-primary" href="contact.html?type=sales">도입 문의</a>
+<button type="button" class="btn btn-secondary" data-act="closeMenu">메뉴 닫기</button>
+</div>
+</div>
+</div>
+
+</header>
+</div>
+
+<main id="main" tabindex="-1">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="wrap">
+<div class="phead">
+<span class="eyeline">개발자 센터</span>
+<h1 id="page-title" tabindex="-1" class="h1">API 연동 매뉴얼</h1>
+<p class="lead">링크페이먼트 신용카드 결제창을 가맹점 웹사이트에 연동하는 방법을 안내합니다.</p>
+<dl class="meta" style="font-size: 15px"><div><dt>대상</dt><dd>신용카드 결제창(인증·비인증)</dd></div><div><dt>문서 기준</dt><dd>2026.09.09 샘플 코드</dd></div></dl>
+<div class="btn-row">
+<a class="btn btn-primary" href="contact.html?type=tech">기술 문의</a>
+<a class="btn btn-secondary" href="https://admin.linkpayment.co.kr" target="_blank" rel="noopener noreferrer">가맹점 관리자 (새 창)</a>
+</div>
+</div>
+<div class="docs">
+<nav class="docs-nav" aria-label="매뉴얼 목차">
+<h2>목차</h2>
+<ol>
+
+<li><button type="button" class="is-on" aria-current="location">연동 개요</button></li>
+
+<li><button type="button" aria-current="false">결제 흐름</button></li>
+
+<li><button type="button" aria-current="false">빠른 시작</button></li>
+
+<li><button type="button" aria-current="false">망 테스트 (echo)</button></li>
+
+<li><button type="button" aria-current="false">결제 요청</button></li>
+
+<li><button type="button" aria-current="false">결제 결과</button></li>
+
+<li><button type="button" aria-current="false">비인증결제</button></li>
+
+<li><button type="button" aria-current="false">결제 취소 · 결과 조회</button></li>
+
+<li><button type="button" aria-current="false">에러 코드</button></li>
+
+<li><button type="button" aria-current="false">샘플 코드 · 연동 문의</button></li>
+
+</ol>
+</nav>
+<div class="docs-main">
+
+<section id="d-intro" class="doc-sec" aria-labelledby="dh-intro">
+<h2 id="dh-intro" class="h2">연동 개요</h2>
+<p class="muted">가맹점 결제 페이지에 링크페이먼트 결제 스크립트를 추가하고, 결제창을 호출한 뒤 결과를 받아 처리합니다.</p>
+<div class="callout">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<div class="stack g4">
+<strong>결제키는 계약 후 발급됩니다</strong>
+<span class="muted small">가맹점 ID와 결제키(publicKey)는 영업 담당자와 계약한 뒤 발급받습니다. 사용하는 결제키에 따라 실결제와 테스트 결제가 구분되니, 테스트할 때 어떤 키를 쓰는지 꼭 확인하세요.</span>
+</div>
+</div>
+<div class="tbl-wrap" role="region" aria-label="API 목록" tabindex="0">
+<table class="tbl">
+<thead><tr><th scope="col">구분</th><th scope="col">호출</th><th scope="col">주소</th><th scope="col">상태</th></tr></thead>
+<tbody>
+<tr><td>망 테스트</td><td><code>echo</code></td><td><span class="method">POST</span> <code>https://api.linkpayment.co.kr/api/echo</code></td><td>제공</td></tr>
+<tr><td>인증결제</td><td><code>paynix.pay</code> · <code>payRoute: '3ds'</code></td><td><code>https://api.linkpayment.co.kr/api/pay</code></td><td>제공</td></tr>
+<tr><td>비인증결제</td><td><code>paynix.pay</code> · <code>payRoute: 'regular'</code></td><td><code>https://api.linkpayment.co.kr/api/pay</code></td><td>사전 승인 필요</td></tr>
+<tr><td>결제 취소</td><td><code>refund</code></td><td><code>https://api.linkpayment.co.kr/api/refund</code></td><td>준비 중</td></tr>
+<tr><td>결과 조회</td><td><code>get</code></td><td><code>https://api.linkpayment.co.kr/api/get</code></td><td>준비 중</td></tr>
+<tr><td>영수증</td><td>-</td><td>-</td><td>준비 중</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="d-flow" class="doc-sec" aria-labelledby="dh-flow">
+<h2 id="dh-flow" class="h2">결제 흐름</h2>
+<p class="muted">가맹점, 링크페이먼트(PG), 카드사 사이에서 인증과 승인이 차례로 진행됩니다.</p>
+<ol class="flow">
+<li class="flow-i"><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="num">1</span><span class="tag">가맹점</span></div><h3 class="h4">결제창 호출</h3><p class="muted small">결제 페이지에서 <span class="icode">clientside.js</span>의 <span class="icode">paynix.pay</span>로 결제창을 엽니다.</p></li>
+<li class="flow-i"><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="num">2</span><span class="tag">PG · 카드사</span></div><h3 class="h4">카드 인증</h3><p class="muted small">구매자가 카드 인증(MPI/ISP)을 진행합니다. 비인증결제는 이 단계가 없습니다.</p></li>
+<li class="flow-i"><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="num">3</span><span class="tag">PG · 카드사</span></div><h3 class="h4">승인</h3><p class="muted small">링크페이먼트가 카드사에 승인을 요청하고 결과를 받습니다.</p></li>
+<li class="flow-i"><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span class="num">4</span><span class="tag">가맹점</span></div><h3 class="h4">결과 처리</h3><p class="muted small">결과를 <span class="icode">responseFunction</span> 또는 <span class="icode">webhookUrl</span>로 받아 완료·실패 화면을 보여줍니다.</p></li>
+</ol>
+</section>
+
+<section id="d-start" class="doc-sec" aria-labelledby="dh-start">
+<h2 id="dh-start" class="h2">빠른 시작</h2>
+<ol class="qs">
+<li><span class="num">1</span><div class="stack g4"><strong>결제키 발급</strong><span class="muted small">계약 후 결제키(publicKey, <span class="icode">pk_</span>로 시작)와 결제 방식(payRoute)을 안내받습니다.</span></div></li>
+<li><span class="num">2</span><div class="stack g4"><strong>망 테스트</strong><span class="muted small"><span class="icode">echo</span> API로 결제키와 연결 상태를 확인합니다.</span></div></li>
+<li><span class="num">3</span><div class="stack g4"><strong>결제창 연동</strong><span class="muted small">결제 페이지에 스크립트를 추가하고 <span class="icode">paynix.pay</span>를 호출합니다.</span></div></li>
+<li><span class="num">4</span><div class="stack g4"><strong>결과 처리</strong><span class="muted small">결과 코드를 확인하고, 승인 정보를 가맹점 서버에 저장하는 처리를 구현합니다.</span></div></li>
+<li><span class="num">5</span><div class="stack g4"><strong>테스트 후 운영 전환</strong><span class="muted small">테스트 결제로 전체 흐름을 확인한 뒤 운영 결제키로 바꿉니다.</span></div></li>
+</ol>
+</section>
+
+<section id="d-echo" class="doc-sec" aria-labelledby="dh-echo">
+<h2 id="dh-echo" class="h2">망 테스트 (echo)</h2>
+<p class="muted">결제키로 링크페이먼트 API에 연결되는지 확인합니다. 결제키는 <span class="icode">Authorization</span> 헤더에 담아 보냅니다.</p>
+<div class="tbl-wrap" role="region" aria-label="echo 요청 헤더" tabindex="0">
+<table class="tbl">
+<thead><tr><th scope="col">헤더</th><th scope="col">값</th></tr></thead>
+<tbody>
+<tr><td><code>Content-Type</code></td><td><code>application/json</code></td></tr>
+<tr><td><code>Accept</code></td><td><code>application/json</code></td></tr>
+<tr><td><code>Authorization</code></td><td>발급받은 결제키 (<code>pk_</code>로 시작)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="code"><div class="code-h"><span>cURL</span><button type="button" class="code-copy" data-act="cp.echoCurl">복사</button></div><pre><code>curl -X POST https://api.linkpayment.co.kr/api/echo \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -H "Authorization: pk_발급받은_결제키" \
+  -d '{}'</code></pre></div>
+<div class="code"><div class="code-h"><span>JavaScript</span><button type="button" class="code-copy" data-act="cp.echoJs">복사</button></div><pre><code>fetch('https://api.linkpayment.co.kr/api/echo', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'pk_발급받은_결제키'
+  },
+  body: JSON.stringify({})
+})
+  .then(function (res) { return res.json(); })
+  .then(function (data) { console.log(data); });</code></pre></div>
+</section>
+
+<section id="d-pay" class="doc-sec" aria-labelledby="dh-pay">
+<h2 id="dh-pay" class="h2">결제 요청</h2>
+<p class="muted">결제 페이지에 결제 스크립트를 추가하고, 결제 버튼을 눌렀을 때 <span class="icode">paynix.pay</span>를 호출합니다. 결제창은 레이어 형태로 열립니다.</p>
+<div class="code"><div class="code-h"><span>HTML · 스크립트 추가</span><button type="button" class="code-copy" data-act="cp.script">복사</button></div><pre><code>&lt;script src="https://api.linkpayment.co.kr/js/clientside.js"&gt;&lt;/script&gt;</code></pre></div>
+<div class="code"><div class="code-h"><span>JavaScript · 결제창 호출</span><button type="button" class="code-copy" data-act="cp.pay">복사</button></div><pre><code>var products = [
+  { name: '상품명', price: '1004', qty: '1', desc: '상품 설명' }
+];
+
+paynix.pay({
+  publicKey: 'pk_발급받은_결제키',  // 계약 후 발급
+  payRoute: '3ds',                 // 인증결제 '3ds' / 비인증결제 'regular'
+  amount: 1004,
+  products: products,
+  payerName: '홍길동',
+  payerEmail: 'buyer@example.com',
+  payerTel: '010-0000-0000',
+  udf1: '',                        // 가맹점 임의 데이터
+  udf2: '',
+  responseFunction: handlePaymentResponse,
+  webhookUrl: '',                  // 결과를 받을 URL (선택)
+  mode: 'layer',                   // 고정값
+  debugMode: 'live'                // 고정값
+});</code></pre></div>
+<h3 class="h3">요청 파라미터</h3>
+<div class="tbl-wrap" role="region" aria-label="결제 요청 파라미터" tabindex="0">
+<table class="tbl">
+<thead><tr><th scope="col">파라미터</th><th scope="col">타입</th><th scope="col">필수</th><th scope="col">설명</th></tr></thead>
+<tbody>
+<tr><td><code>publicKey</code></td><td>string</td><td class="req-y">Y</td><td>결제키. <code>pk_</code>로 시작하며 계약 후 발급됩니다.</td></tr>
+<tr><td><code>payRoute</code></td><td>string</td><td class="req-y">Y</td><td>결제 방식. 인증결제 <code>'3ds'</code>, 비인증결제 <code>'regular'</code>. 계약에 따라 지정됩니다.</td></tr>
+<tr><td><code>amount</code></td><td>number</td><td class="req-y">Y</td><td>결제 금액</td></tr>
+<tr><td><code>payerName</code></td><td>string</td><td>N</td><td>구매자 성명</td></tr>
+<tr><td><code>payerEmail</code></td><td>string</td><td>N</td><td>구매자 이메일</td></tr>
+<tr><td><code>payerTel</code></td><td>string</td><td>N</td><td>구매자 연락처</td></tr>
+<tr><td><code>udf1</code></td><td>string</td><td class="req-y">Y</td><td>가맹점 임의 데이터. 결과에 그대로 돌려받습니다.</td></tr>
+<tr><td><code>udf2</code></td><td>string</td><td class="req-y">Y</td><td>가맹점 임의 데이터. 결과에 그대로 돌려받습니다.</td></tr>
+<tr><td><code>responseFunction</code></td><td>function</td><td>N</td><td>결제 결과를 받을 JavaScript 함수</td></tr>
+<tr><td><code>webhookUrl</code></td><td>string</td><td>N</td><td>결제 결과를 받을 웹 페이지 URL</td></tr>
+<tr><td><code>mode</code></td><td>string</td><td class="req-y">Y</td><td>고정값 <code>'layer'</code></td></tr>
+<tr><td><code>debugMode</code></td><td>string</td><td class="req-y">Y</td><td>고정값 <code>'live'</code></td></tr>
+<tr><td><code>products</code></td><td>array</td><td class="req-y">Y</td><td>구매 상품 정보 배열 (1개 이상)</td></tr>
+<tr><td class="sub"><code>products[n].prodId</code></td><td>string</td><td>N</td><td>상품 ID</td></tr>
+<tr><td class="sub"><code>products[n].name</code></td><td>string</td><td>N</td><td>상품명</td></tr>
+<tr><td class="sub"><code>products[n].price</code></td><td>string</td><td>N</td><td>상품 가격</td></tr>
+<tr><td class="sub"><code>products[n].qty</code></td><td>string</td><td>N</td><td>상품 수량</td></tr>
+<tr><td class="sub"><code>products[n].desc</code></td><td>string</td><td>N</td><td>상품 설명</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span class="muted small">결제 페이지에는 카드번호를 직접 입력받는 화면을 만들지 마세요. 카드 정보는 링크페이먼트 결제창에서 입력합니다.</span>
+</div>
+</section>
+
+<section id="d-result" class="doc-sec" aria-labelledby="dh-result">
+<h2 id="dh-result" class="h2">결제 결과</h2>
+<p class="muted"><span class="icode">responseFunction</span>에는 결과가 JSON 문자열로 전달됩니다. <span class="icode">result.resultCd</span>가 <span class="icode">0000</span>이면 승인 성공이며, 승인 정보는 성공한 경우에만 담깁니다.</p>
+<div class="code"><div class="code-h"><span>JavaScript · 결과 처리</span><button type="button" class="code-copy" data-act="cp.result">복사</button></div><pre><code>function handlePaymentResponse(response) {
+  var res = JSON.parse(response);
+
+  if (res.result.resultCd === '0000') {
+    // 승인 성공: 결과를 가맹점 서버로 보내 주문 상태를 저장합니다. (가맹점 구현)
+    saveOrderResult(res);
+  } else {
+    // 승인 실패: 메시지로 사유를 안내합니다. (가맹점 구현)
+    showPaymentFailed(res.result.resultMsg, res.result.advanceMsg);
+  }
+}</code></pre></div>
+<div class="code"><div class="code-h"><span>JSON · 응답 구조</span><button type="button" class="code-copy" data-act="cp.json">복사</button></div><pre><code>{
+  "result": {
+    "resultCd": "0000",
+    "resultMsg": "결과 메시지",
+    "advanceMsg": "상세 결과 메시지",
+    "create": "승인 일시"
+  },
+  "trxId": "거래 ID",
+  "trxType": "거래 유형",
+  "trackId": "추적 ID",
+  "tmnId": "터미널 ID",
+  "amount": 1004,
+  "udf1": "",
+  "udf2": "",
+  "pay": {
+    "authCd": "승인번호",
+    "card": {
+      "cardId": "카드 ID",
+      "installment": 0,
+      "bin": 123456,
+      "last4": 1234,
+      "issuer": "발급사",
+      "acquirer": "매입사",
+      "cardType": "카드 종류"
+    }
+  },
+  "products": [
+    { "prodId": "상품 ID", "name": "상품명", "qty": 1, "price": 1004, "desc": "상품 설명" }
+  ]
+}</code></pre></div>
+<h3 class="h3">응답 항목</h3>
+<div class="tbl-wrap" role="region" aria-label="결제 결과 항목" tabindex="0">
+<table class="tbl">
+<thead><tr><th scope="col">항목</th><th scope="col">타입</th><th scope="col">제공</th><th scope="col">설명</th></tr></thead>
+<tbody>
+<tr><td><code>result.resultCd</code></td><td>string</td><td class="req-y">항상</td><td>결과 코드(4자리). <code>0000</code> 성공. 그 밖의 코드는 아래 에러 코드에서 확인합니다.</td></tr>
+<tr><td><code>result.resultMsg</code></td><td>string</td><td class="req-y">항상</td><td>결과 메시지</td></tr>
+<tr><td><code>result.advanceMsg</code></td><td>string</td><td class="req-y">항상</td><td>상세 결과 메시지</td></tr>
+<tr><td><code>result.create</code></td><td>string</td><td class="req-y">항상</td><td>생성 일시(승인 일시)</td></tr>
+<tr><td><code>trxId</code></td><td>string</td><td>성공 시</td><td>거래 ID</td></tr>
+<tr><td><code>trxType</code></td><td>string</td><td>성공 시</td><td>거래 유형</td></tr>
+<tr><td><code>trackId</code></td><td>string</td><td>성공 시</td><td>추적 ID</td></tr>
+<tr><td><code>tmnId</code></td><td>string</td><td>성공 시</td><td>터미널 ID</td></tr>
+<tr><td><code>amount</code></td><td>number</td><td>성공 시</td><td>결제 금액</td></tr>
+<tr><td><code>udf1</code>, <code>udf2</code></td><td>string</td><td>성공 시</td><td>요청 시 보낸 가맹점 임의 데이터</td></tr>
+<tr><td><code>pay.authCd</code></td><td>string</td><td>성공 시</td><td>승인번호</td></tr>
+<tr><td class="sub"><code>pay.card.cardId</code></td><td>string</td><td>성공 시</td><td>카드 ID</td></tr>
+<tr><td class="sub"><code>pay.card.installment</code></td><td>number</td><td>성공 시</td><td>할부 개월 수</td></tr>
+<tr><td class="sub"><code>pay.card.bin</code></td><td>number</td><td>성공 시</td><td>카드 BIN</td></tr>
+<tr><td class="sub"><code>pay.card.last4</code></td><td>number</td><td>성공 시</td><td>카드번호 끝 4자리</td></tr>
+<tr><td class="sub"><code>pay.card.issuer</code></td><td>string</td><td>성공 시</td><td>발급사</td></tr>
+<tr><td class="sub"><code>pay.card.acquirer</code></td><td>string</td><td>성공 시</td><td>매입사</td></tr>
+<tr><td class="sub"><code>pay.card.cardType</code></td><td>string</td><td>성공 시</td><td>카드 종류</td></tr>
+<tr><td><code>products[n]</code></td><td>array</td><td>성공 시</td><td>요청한 상품 정보 (<code>prodId</code>, <code>name</code>, <code>qty</code>, <code>price</code>, <code>desc</code>)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span class="muted small">결과를 가맹점 데이터베이스에 저장하고 주문 상태를 바꾸는 처리는 가맹점 서버에서 구현합니다. 결제 완료 화면이 보이지 않을 때 구매자가 연락할 수 있는 고객센터 안내도 결제 페이지에 넣어 주세요.</span>
+</div>
+</section>
+
+<section id="d-regular" class="doc-sec" aria-labelledby="dh-regular">
+<h2 id="dh-regular" class="h2">비인증결제</h2>
+<p class="muted">카드 인증 단계 없이 결제하는 방식입니다. 요청 방법은 인증결제와 같고 <span class="icode">payRoute</span>만 <span class="icode">'regular'</span>로 보냅니다.</p>
+<div class="callout">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span class="muted small">비인증결제는 업종 등에 대한 사전 승인이 필요합니다. 이용하려면 먼저 도입 상담을 요청해 주세요.</span>
+</div>
+</section>
+
+<section id="d-soon" class="doc-sec" aria-labelledby="dh-soon">
+<h2 id="dh-soon" class="h2">결제 취소 · 결과 조회</h2>
+<p class="muted">결제 취소(<span class="icode">refund</span>), 결과 조회(<span class="icode">get</span>), 영수증 API는 준비 중입니다. 공개되면 이 매뉴얼에 추가합니다.</p>
+</section>
+
+<section id="d-errors" class="doc-sec" aria-labelledby="dh-errors">
+<h2 id="dh-errors" class="h2">에러 코드</h2>
+<p class="muted">신용카드 응답 코드 목록입니다. 응답코드 또는 메시지로 검색하세요. (2026.09.07 기준)</p>
+<div class="err-tools">
+<div class="field">
+<label for="err-q">코드·메시지 검색</label>
+<input id="err-q" class="input" type="search" placeholder="예: 0100, 한도, 유효기간" value="">
+</div>
+</div>
+<p class="small muted" role="status">총 521건 중 521건 표시</p>
+
+<ul class="err-list" aria-label="에러 코드 목록">
+<li class="err-row head" aria-hidden="true"><span>응답코드</span><span>상세</span><span>응답메시지</span><span>상세메시지</span></li>
+
+<li class="err-row"><span class="mono">0000</span><span class="mono">00</span><span>성공</span><span class="muted">정상 처리 되었습니다.</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">00</span><span>필수항목 누락</span><span class="muted">주문번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">01</span><span>필수항목 누락</span><span class="muted">주문일시 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">02</span><span>필수항목 누락</span><span class="muted">고객 아이디 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">03</span><span>필수항목 누락</span><span class="muted">고객명 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">04</span><span>필수항목 누락</span><span class="muted">상품 코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">05</span><span>필수항목 누락</span><span class="muted">상품명 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">06</span><span>필수항목 누락</span><span class="muted">고객 아이피주소 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">07</span><span>필수항목 누락</span><span class="muted">메일주소 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">08</span><span>필수항목 누락</span><span class="muted">이동전화번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">09</span><span>필수항목 누락</span><span class="muted">카드 번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">10</span><span>필수항목 누락</span><span class="muted">비밀번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">11</span><span>필수항목 누락</span><span class="muted">주민번호 or 법인번호(10 자리) 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">12</span><span>필수항목 누락</span><span class="muted">거래금액 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">13</span><span>필수항목 누락</span><span class="muted">부가세 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">14</span><span>필수항목 누락</span><span class="muted">봉사료 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">15</span><span>필수항목 누락</span><span class="muted">통화 구분 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">16</span><span>필수항목 누락</span><span class="muted">할부 개월 수 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">17</span><span>필수항목 누락</span><span class="muted">유효년일 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">18</span><span>필수항목 누락</span><span class="muted">CVC2 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">19</span><span>필수항목 누락</span><span class="muted">카드사 코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">20</span><span>필수항목 누락</span><span class="muted">ISP/MIP 구분 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">21</span><span>필수항목 누락</span><span class="muted">무이자 할부 구분 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">22</span><span>필수항목 누락</span><span class="muted">복합결제 여부 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">23</span><span>필수항목 누락</span><span class="muted">수령자 성명 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">24</span><span>필수항목 누락</span><span class="muted">수령자 배송지 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">25</span><span>필수항목 누락</span><span class="muted">MPI CAVV 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">26</span><span>필수항목 누락</span><span class="muted">MPI X-ID 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">27</span><span>필수항목 누락</span><span class="muted">MPI EC-I 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">28</span><span>필수항목 누락</span><span class="muted">SessionKey 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">29</span><span>필수항목 누락</span><span class="muted">Encrypted Data 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">30</span><span>필수항목 누락</span><span class="muted">IC DATA 형태 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">31</span><span>필수항목 누락</span><span class="muted">IC DATA 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">32</span><span>필수항목 누락</span><span class="muted">서명유무 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">33</span><span>필수항목 누락</span><span class="muted">Sign DATA 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">34</span><span>필수항목 누락</span><span class="muted">거래번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">35</span><span>필수항목 누락</span><span class="muted">승인번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">36</span><span>필수항목 누락</span><span class="muted">승인일시 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">37</span><span>필수항목 누락</span><span class="muted">국내/해외카드 구분 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">38</span><span>필수항목 누락</span><span class="muted">결제창 언어 구분 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">39</span><span>필수항목 누락</span><span class="muted">수기특약 상세 구분 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">40</span><span>필수항목 누락</span><span class="muted">주민번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">41</span><span>필수항목 누락</span><span class="muted">세션키 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">42</span><span>필수항목 누락</span><span class="muted">취소요청 구분 누락(9200 COMMAND 미사용 오류)</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">43</span><span>필수항목 누락</span><span class="muted">취소구분 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">45</span><span>필수항목 누락</span><span class="muted">Return Url 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">46</span><span>필수항목 누락</span><span class="muted">매입사코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">47</span><span>필수항목 누락</span><span class="muted">발급사코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">48</span><span>필수항목 누락</span><span class="muted">카드사 가맹점번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">49</span><span>필수항목 누락</span><span class="muted">VAN 거래번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">50</span><span>필수항목 누락</span><span class="muted">카드구분 코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">51</span><span>필수항목 누락</span><span class="muted">BIN 정보 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">52</span><span>필수항목 누락</span><span class="muted">제휴사 코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">53</span><span>필수항목 누락</span><span class="muted">이전 전문 코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">54</span><span>필수항목 누락</span><span class="muted">전문 가맹점 ID 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">55</span><span>필수항목 누락</span><span class="muted">인증 토큰값 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">56</span><span>필수항목 누락</span><span class="muted">요청 타입 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">57</span><span>필수항목 누락</span><span class="muted">단말기ID 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">58</span><span>필수항목 누락</span><span class="muted">은행코드 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">59</span><span>필수항목 누락</span><span class="muted">계좌 번호 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">60</span><span>필수항목 누락</span><span class="muted">취소순번 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">61</span><span>필수항목 누락</span><span class="muted">하위 법인번호(10 자리) 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">62</span><span>필수항목 누락</span><span class="muted">서비스타입 누락</span></li>
+
+<li class="err-row"><span class="mono">0100</span><span class="mono">63</span><span>필수항목 누락</span><span class="muted">WALLET ID 누락</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">01</span><span>필드 길이 에러</span><span class="muted">주문번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">02</span><span>필드 길이 에러</span><span class="muted">주문일자 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">03</span><span>필드 길이 에러</span><span class="muted">고객아이디 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">04</span><span>필드 길이 에러</span><span class="muted">아이템코드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">05</span><span>필드 길이 에러</span><span class="muted">아이템명 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">06</span><span>필드 길이 에러</span><span class="muted">고객아이피 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">07</span><span>필드 길이 에러</span><span class="muted">고객이메일 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">08</span><span>필드 길이 에러</span><span class="muted">거래금액 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">09</span><span>필드 길이 에러</span><span class="muted">ISP/MIP 구분 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">10</span><span>필드 길이 에러</span><span class="muted">승인통화 구분 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">11</span><span>필드 길이 에러</span><span class="muted">할부 개월 수 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">12</span><span>필드 길이 에러</span><span class="muted">MPI_ECI 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">13</span><span>필드 길이 에러</span><span class="muted">결제창 언어 구분 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">14</span><span>필드 길이 에러</span><span class="muted">고객명 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">15</span><span>필드 길이 에러</span><span class="muted">거래번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">16</span><span>필드 길이 에러</span><span class="muted">국내/해외카드 구분 구분 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">17</span><span>필드 길이 에러</span><span class="muted">세션키 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">18</span><span>필드 길이 에러</span><span class="muted">Return Url 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">19</span><span>필드 길이 에러</span><span class="muted">휴대폰번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">20</span><span>필드 길이 에러</span><span class="muted">SMS 추가 문구 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">21</span><span>필드 길이 에러</span><span class="muted">카드번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">22</span><span>필드 길이 에러</span><span class="muted">패스워드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">23</span><span>필드 길이 에러</span><span class="muted">주민번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">24</span><span>필드 길이 에러</span><span class="muted">유효기간 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">25</span><span>필드 길이 에러</span><span class="muted">CVC2 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">26</span><span>필드 길이 에러</span><span class="muted">발급사 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">27</span><span>필드 길이 에러</span><span class="muted">수기특약 상세 타입 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">28</span><span>필드 길이 에러</span><span class="muted">단말기 아이디 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">29</span><span>필드 길이 에러</span><span class="muted">매입사코드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">30</span><span>필드 길이 에러</span><span class="muted">발급사코드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">31</span><span>필드 길이 에러</span><span class="muted">카드사 가맹점번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">32</span><span>필드 길이 에러</span><span class="muted">승인번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">33</span><span>필드 길이 에러</span><span class="muted">승인일시 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">34</span><span>필드 길이 에러</span><span class="muted">VAN 거래번호 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">35</span><span>필드 길이 에러</span><span class="muted">카드구분 코드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">36</span><span>필드 길이 에러</span><span class="muted">부가정보 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">37</span><span>필드 길이 에러</span><span class="muted">거래키 필드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">38</span><span>필드 길이 에러</span><span class="muted">부가세 필드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">39</span><span>필드 길이 에러</span><span class="muted">봉사료 필드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">40</span><span>필드 길이 에러</span><span class="muted">PG즉시할인 사용여부 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">41</span><span>필드 길이 에러</span><span class="muted">PG즉시할인 프로모션코드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">42</span><span>필드 길이 에러</span><span class="muted">PG즉시할인 할인금액 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">43</span><span>필드 길이 에러</span><span class="muted">BIN 정보 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">44</span><span>필드 길이 에러</span><span class="muted">발급사 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">45</span><span>필드 길이 에러</span><span class="muted">제휴사 코드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">46</span><span>필드 길이 에러</span><span class="muted">이전 전문 코드 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">47</span><span>필드 길이 에러</span><span class="muted">구매거절 확인사유 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">48</span><span>필드 길이 에러</span><span class="muted">VAN 결제 고유번호 길이 에러(카카오)</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">49</span><span>필드 길이 에러</span><span class="muted">카카오 인증 토큰 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">50</span><span>필드 길이 에러</span><span class="muted">결제창 유효기간 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0102</span><span class="mono">51</span><span>필드 길이 에러</span><span class="muted">법인번호(10 자리) 길이 에러</span></li>
+
+<li class="err-row"><span class="mono">0105</span><span class="mono">01</span><span>메시지 포멧 에러</span><span class="muted">주문금액 포멧 에러</span></li>
+
+<li class="err-row"><span class="mono">0105</span><span class="mono">02</span><span>메시지 포멧 에러</span><span class="muted">국내/해외카드 구분 포멧 에러</span></li>
+
+<li class="err-row"><span class="mono">0105</span><span class="mono">03</span><span>메시지 포멧 에러</span><span class="muted">승인통화 구분 포멧 에러</span></li>
+
+<li class="err-row"><span class="mono">0105</span><span class="mono">04</span><span>메시지 포멧 에러</span><span class="muted">BIN 정보 포멧 에러</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">00</span><span>등록되지 않은 가맹점</span><span class="muted">mid 오류</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">01</span><span>서비스 시작 상태 아님</span><span class="muted">서비스 시작 가맹점 아님</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">02</span><span>등록되지 않은 단말기 제조사</span><span class="muted">등록된 단말기 제조사 정보가 없습니다.</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">03</span><span>등록 되지 않은 현금영수증 서비스 아이디</span><span class="muted">현금영수증 서비스가 불가능한 아이디입니다.</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">04</span><span>미등록 단말기</span><span class="muted">단말기 제조사와 단말기 ID 불일치</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">05</span><span>거래불가 단말기</span><span class="muted">거래불가 단말기(미등록,해외카드 등)</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">06</span><span>간편결제 미지원 가맹점</span><span class="muted">간편결제를 지원하지 않는 가맹점입니다</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">07</span><span>미등록 단말기</span><span class="muted">미등록 OFFPG 단말기입니다</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">08</span><span>단말기 설정 오류</span><span class="muted">승인취소 차단 유예설정 오류</span></li>
+
+<li class="err-row"><span class="mono">0200</span><span class="mono">27</span><span>취소 불가</span><span class="muted">취소 진행 중 입니다. 잠시후 확인해주세요.</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">00</span><span>등록되지 않은 서비스</span><span class="muted">service 오류</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">01</span><span>등록되지 않은 서비스</span><span class="muted">affiliater service 오류</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">02</span><span>등록되지 않은 서비스</span><span class="muted">certification type 오류</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">03</span><span>취소 가능일자 아님</span><span class="muted">취소가능한 기한이 지남</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">04</span><span>등록되지 않은 서비스타입</span><span class="muted">서비스 가능한 서비스타입이 아닌 경우 발생</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">05</span><span>지원하지 않는 월자동 인증 방식</span><span class="muted">지원하지 않는 월자동 인증 방식입니다.</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">06</span><span>지원하지 않는 서비스타입</span><span class="muted">가맹점 서비스타입을 지원하지 않는 경우 발생</span></li>
+
+<li class="err-row"><span class="mono">0201</span><span class="mono">07</span><span>서비스 타입 불일치</span><span class="muted">OFFPG 서비스타입이 아님</span></li>
+
+<li class="err-row"><span class="mono">0202</span><span class="mono">00</span><span>망취소 에러</span><span class="muted">망취소를 지원하지 않는 가맹점</span></li>
+
+<li class="err-row"><span class="mono">0202</span><span class="mono">01</span><span>해당 결제정보가 블러킹 등록이 되어있습니다.</span><span class="muted">사용자 카드번호가 Blocking 처리가 되어있음(당사)</span></li>
+
+<li class="err-row"><span class="mono">0202</span><span class="mono">02</span><span>해당 결제정보가 블러킹 등록이 되어있습니다.</span><span class="muted">사용자 카드번호가 Blocking 처리가 되어있음(가맹점)</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">01</span><span>해당 카드는 사용이 불가합니다. 가맹점으로 문의하시기 바랍니다.</span><span class="muted">사용불가한 결제정보 카드타입_JCB</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">02</span><span>해당 카드는 사용이 불가합니다. 가맹점으로 문의하시기 바랍니다.</span><span class="muted">사용불가한 결제정보 카드타입_VISA</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">03</span><span>해당 카드는 사용이 불가합니다. 가맹점으로 문의하시기 바랍니다.</span><span class="muted">사용불가한 결제정보 카드타입_MASTER</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">04</span><span>해당 카드는 사용이 불가합니다. 가맹점으로 문의하시기 바랍니다.</span><span class="muted">사용불가한 카드 인증정보_JCB</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">05</span><span>해당 카드는 사용이 불가합니다. 가맹점으로 문의하시기 바랍니다.</span><span class="muted">사용불가한 카드 인증정보_VISA</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">06</span><span>해당 카드는 사용이 불가합니다. 가맹점으로 문의하시기 바랍니다.</span><span class="muted">사용불가한 카드 인증정보_MASTER</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">07</span><span>해당 사이트 고객센터로 문의하세요(인증타입 불일치)</span><span class="muted">비인증결제 인증타입 불일치</span></li>
+
+<li class="err-row"><span class="mono">0203</span><span class="mono">08</span><span>승인 거절</span><span class="muted">요청하신 카드는 해당 가맹점에서 결제가 불가합니다.</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">01</span><span>월자동 신청카드와 실제 승인된 카드 정보가 다릅니다.</span><span class="muted">월자동 신청카드와 실제 승인된 카드 정보가 다릅니다.</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">02</span><span>동의 유효 기간 만료</span><span class="muted">월자동 자동과금 관리DB의 해당건이 동의유효기간을 초과</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">03</span><span>자동 과금 횟수 초과</span><span class="muted">월자동 자동과금 관리DB의 동의횟수가 지정된 동의횟수보다 초과</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">04</span><span>자동과금 인증 에러</span><span class="muted">월자동 인증DB에 데이터 존재하지 않음</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">05</span><span>자동 과금 동의 기간 에러</span><span class="muted">월자동 최초건경우 무제한 업체인데 유효기간이 0이 아님</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">06</span><span>BIN 정보 조회 에러</span><span class="muted">DB에 해당 BIN 정보 데이터 존재하지 않음</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">07</span><span>자동과금 미사용 키</span><span class="muted">월자동 자동과금 키 미사용 상태</span></li>
+
+<li class="err-row"><span class="mono">0204</span><span class="mono">08</span><span>월자동 키 전체 해지 에러</span><span class="muted">월자동 키 전체 해지 시 세션키 필드는 Null이어야 합니다.</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">01</span><span>취소/매입취소 불가</span><span class="muted">부분매입 취소건 존재</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">02</span><span>부분취소 불가</span><span class="muted">부분매입 취소건 미존재</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">03</span><span>부분취소 불가</span><span class="muted">부분취소 가능한 금액 초과(부분매입 요청건 미존재)</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">04</span><span>부분취소 불가</span><span class="muted">부분취소 가능한 금액 초과</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">05</span><span>부분취소 불가</span><span class="muted">전체취소 가능한 금액 초과(부분매입 요청건 존재)</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">06</span><span>월자동 주민번호/사업자번호 상이</span><span class="muted">월자동 신청 주민번호/사업자번호와 요청된 주민번호/사업자번호 정보가 다릅니다.</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">07</span><span>월자동 비밀번호 상이</span><span class="muted">월자동 신청 비밀번호와 요청된 비밀번호 정보가 다릅니다.</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">08</span><span>부분취소 불가</span><span class="muted">부분취소 가능 상태 아님</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">09</span><span>프로모션 불가</span><span class="muted">즉시할인 이벤트가 종료되었습니다.</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">10</span><span>제휴사 망취소 불가</span><span class="muted">주문 상태의 거래가 아닙니다</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">11</span><span>부분취소 불가</span><span class="muted">과세/면세 부분매입 취소 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">12</span><span>승인 거절</span><span class="muted">등록된 카드 정보가 없습니다</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">13</span><span>승인 거절</span><span class="muted">등록된 매입사 정보가 없습니다</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">14</span><span>부분취소 불가</span><span class="muted">부분취소 불가능한 거래건 입니다</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">15</span><span>승인 거절</span><span class="muted">거래 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">16</span><span>승인/취소가 차단된 가맹점입니다.</span><span class="muted">승인/취소가 차단된 가맹점입니다.</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">17</span><span>고객확인제도 미이행으로 인한 서비스 중지</span><span class="muted">고객확인제도 미이행으로 인한 서비스 중지</span></li>
+
+<li class="err-row"><span class="mono">0205</span><span class="mono">18</span><span>승인 거절</span><span class="muted">승인 처리를 할 수 없는 상태(기승인 또는 실패)</span></li>
+
+<li class="err-row"><span class="mono">0300</span><span class="mono">00</span><span>주문번호 중복</span><span class="muted">주문번호 중복</span></li>
+
+<li class="err-row"><span class="mono">0300</span><span class="mono">01</span><span>승인 대상건 아님</span><span class="muted">주문번호 성공 실패 건</span></li>
+
+<li class="err-row"><span class="mono">0301</span><span class="mono">00</span><span>대상 건 아님</span><span class="muted">Status 가 승인성공, 통지 실패 건 아님</span></li>
+
+<li class="err-row"><span class="mono">0301</span><span class="mono">01</span><span>승인 거절</span><span class="muted">해외 마스터 카드 거래 중지</span></li>
+
+<li class="err-row"><span class="mono">0301</span><span class="mono">02</span><span>승인 거절</span><span class="muted">해외 바자 카드 ECI가 비 정상</span></li>
+
+<li class="err-row"><span class="mono">0301</span><span class="mono">03</span><span>통지실패</span><span class="muted">가맹점 승인 결과 통지 실패</span></li>
+
+<li class="err-row"><span class="mono">0301</span><span class="mono">04</span><span>승인 거절</span><span class="muted">삼성/LG 페이 결제가 불가능한 카드입니다</span></li>
+
+<li class="err-row"><span class="mono">0301</span><span class="mono">05</span><span>승인취소 거절</span><span class="muted">승인취소가 불가 한 단말기 입니다</span></li>
+
+<li class="err-row"><span class="mono">0301</span><span class="mono">06</span><span>취소 실패</span><span class="muted">승인/부분 취소 불가 거래</span></li>
+
+<li class="err-row"><span class="mono">0400</span><span class="mono">00</span><span>한도 오류</span><span class="muted">건별 최소 결제 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">0400</span><span class="mono">01</span><span>한도 오류</span><span class="muted">건별 최대 결제 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">0400</span><span class="mono">02</span><span>한도 오류</span><span class="muted">가맹점 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0400</span><span class="mono">03</span><span>한도 오류</span><span class="muted">가맹점 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0400</span><span class="mono">04</span><span>한도오류</span><span class="muted">가맹점 전체 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0400</span><span class="mono">05</span><span>한도오류</span><span class="muted">가맹점 전체 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">01</span><span>한도 오류</span><span class="muted">가맹점 사용자별 카드번호 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">02</span><span>한도 오류</span><span class="muted">가맹점 사용자별 카드번호 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">03</span><span>한도 오류</span><span class="muted">사용자별 카드번호 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">04</span><span>한도 오류</span><span class="muted">사용자별 카드번호 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">05</span><span>한도 오류</span><span class="muted">가맹점 사용자별 카드번호 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">06</span><span>한도 오류</span><span class="muted">가맹점 사용자별 카드번호 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">07</span><span>한도 오류</span><span class="muted">사용자별 카드번호 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0401</span><span class="mono">08</span><span>한도 오류</span><span class="muted">사용자별 카드번호 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">01</span><span>한도 오류</span><span class="muted">가맹점 사용자별 IP 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">02</span><span>한도 오류</span><span class="muted">가맹점 사용자별 IP 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">03</span><span>한도 오류</span><span class="muted">사용자별 IP 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">04</span><span>한도 오류</span><span class="muted">사용자별 IP 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">05</span><span>한도 오류</span><span class="muted">가맹점 사용자별 IP 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">06</span><span>한도 오류</span><span class="muted">가맹점 사용자별 IP 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">07</span><span>한도 오류</span><span class="muted">사용자별 IP 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">08</span><span>한도 오류</span><span class="muted">사용자별 IP 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">11</span><span>한도 오류</span><span class="muted">가맹점 사용자별 ID 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">12</span><span>한도 오류</span><span class="muted">가맹점 사용자별 ID 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">13</span><span>한도 오류</span><span class="muted">가맹점 사용자별 ID 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">14</span><span>한도 오류</span><span class="muted">가맹점 사용자별 ID 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">15</span><span>한도 오류</span><span class="muted">가맹점 단말기별 ID 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">16</span><span>한도 오류</span><span class="muted">가맹점 단말기별 ID 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">17</span><span>한도 오류</span><span class="muted">가맹점 단말기별 ID 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">18</span><span>한도 오류</span><span class="muted">가맹점 단말기별 ID 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">19</span><span>한도 오류</span><span class="muted">가맹점 단말기별 ID 건별 최소 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">20</span><span>한도 오류</span><span class="muted">가맹점 단말기별 ID 건별 최대 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0402</span><span class="mono">21</span><span>할부개월 오류</span><span class="muted">가맹점 단말기별 ID 할부개월 초과</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">01</span><span>한도 오류</span><span class="muted">가맹점 발급사별 카드번호별 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">02</span><span>한도 오류</span><span class="muted">가맹점 발급사별 카드번호별 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">03</span><span>한도 오류</span><span class="muted">가맹점 발급사별 가맹점ID별 일 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">04</span><span>한도 오류</span><span class="muted">가맹점 발급사별 가맹점ID별 월 한도 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">05</span><span>한도 오류</span><span class="muted">가맹점 발급사별 카드번호별 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">06</span><span>한도 오류</span><span class="muted">가맹점 발급사별 카드번호별 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">07</span><span>한도 오류</span><span class="muted">가맹점 발급사별 가맹점ID별 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">08</span><span>한도 오류</span><span class="muted">가맹점 발급사별 가맹점ID별 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">09</span><span>한도 오류</span><span class="muted">가맹점 발급사별 카드번호별 월 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">10</span><span>한도 오류</span><span class="muted">가맹점 발급사별 카드번호별 일 카운트 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">11</span><span>한도 오류</span><span class="muted">가맹점 발급사별 건별 최소 결제 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">12</span><span>한도 오류</span><span class="muted">가맹점 발급사별 건별 최대 결제 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">13</span><span>할부개월 오류</span><span class="muted">가맹점 할부 개월 초과</span></li>
+
+<li class="err-row"><span class="mono">0403</span><span class="mono">14</span><span>할부개월 오류</span><span class="muted">가맹점 카드사별 할부 개월 초과</span></li>
+
+<li class="err-row"><span class="mono">0404</span><span class="mono">01</span><span>B/L 한도 초과</span><span class="muted">가맹점별 B/L ID 건별 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">0404</span><span class="mono">02</span><span>B/L 한도 초과</span><span class="muted">가맹점별 B/L ID 일 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">0404</span><span class="mono">03</span><span>B/L 한도 초과</span><span class="muted">가맹점별 B/L ID 월 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">0404</span><span class="mono">04</span><span>B/L 한도 초과</span><span class="muted">가맹점별 B/L 카드번호 건별 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">0404</span><span class="mono">05</span><span>B/L 한도 초과</span><span class="muted">가맹점별 B/L 카드번호 일 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">0404</span><span class="mono">06</span><span>B/L 한도 초과</span><span class="muted">가맹점별 B/L 카드번호 월 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">0501</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">일반(승인성공)건만 취소 가능합니다.</span></li>
+
+<li class="err-row"><span class="mono">0502</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">부도건은 매입취소 불가능 합니다.</span></li>
+
+<li class="err-row"><span class="mono">0503</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">매입결과가 오지 않아 취소가 불가능 합니다.</span></li>
+
+<li class="err-row"><span class="mono">0504</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">부분취소가 불가능 합니다. 계약정보를 확인해주세요.</span></li>
+
+<li class="err-row"><span class="mono">0505</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">해당 업체의 취소가능한 금액이 부족합니다.</span></li>
+
+<li class="err-row"><span class="mono">0506</span><span class="mono">00</span><span>취소/매입 취소 실패</span><span class="muted">이미 취소 요청된 건입니다.</span></li>
+
+<li class="err-row"><span class="mono">0506</span><span class="mono">01</span><span>제휴사 응답 메시지 오류</span><span class="muted">제휴사 응답 메시지 오류</span></li>
+
+<li class="err-row"><span class="mono">0506</span><span class="mono">02</span><span>중복 요청 거래</span><span class="muted">중복 요청 거래</span></li>
+
+<li class="err-row"><span class="mono">0507</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">취소금액은 승인금액보다 클수 없습니다.</span></li>
+
+<li class="err-row"><span class="mono">0508</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">매입상태가 접수/요청/성공인 경우만 취소 가능합니다.</span></li>
+
+<li class="err-row"><span class="mono">0509</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[실패] 전체취소는 일반 매입취소를 이용해주세요</span></li>
+
+<li class="err-row"><span class="mono">0510</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[에러] 취소금액을 확인해주세요</span></li>
+
+<li class="err-row"><span class="mono">0511</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[실패] 해당 업체의 강제취소가능한 금액이 부족합니다(오프라인 처리필요)</span></li>
+
+<li class="err-row"><span class="mono">0512</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[실패] 요청한 금액의 합이 일치하지 않습니다.</span></li>
+
+<li class="err-row"><span class="mono">0513</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[실패] 총 할인금액차감 오류</span></li>
+
+<li class="err-row"><span class="mono">0514</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[실패] 총 청구금액차감 오류</span></li>
+
+<li class="err-row"><span class="mono">0515</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[실패] 잔여 청구액이 있습니다.</span></li>
+
+<li class="err-row"><span class="mono">0590</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">유효하지 않은 거래번호 입니다.</span></li>
+
+<li class="err-row"><span class="mono">0590</span><span class="mono">01</span><span>매입 취소 실패</span><span class="muted">매입취소 처리 중인 거래 건입니다</span></li>
+
+<li class="err-row"><span class="mono">0590</span><span class="mono">02</span><span>매입 취소 실패</span><span class="muted">부분매입취소 처리 중인 거래 건입니다</span></li>
+
+<li class="err-row"><span class="mono">0590</span><span class="mono">03</span><span>매입 취소 실패</span><span class="muted">매입 취소가 불가 한 단말기입니다</span></li>
+
+<li class="err-row"><span class="mono">0598</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">매입취소 에러</span></li>
+
+<li class="err-row"><span class="mono">0599</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">취소 모드를 확인해주세요.</span></li>
+
+<li class="err-row"><span class="mono">0600</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[에러] 중복된 취소건 입니다.</span></li>
+
+<li class="err-row"><span class="mono">0700</span><span class="mono">00</span><span>현금영수증 발행 거절</span><span class="muted">현금영수증 발행이 불가 한 단말기입니다</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">00</span><span>구매결정을 할 수 없는 상태입니다.</span><span class="muted">이미 구매결정이 완료된 상태입니다.</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">01</span><span>구매결정을 할 수 없는 상태입니다.</span><span class="muted">배송정보 미등록</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">02</span><span>배송정보 등록 불가</span><span class="muted">배송정보 기등록 건 배송정보 재등록 불가</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">03</span><span>배송정보 등록 불가</span><span class="muted">성공거래건이 아님으로 배송정보 등록 불가</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">04</span><span>구매결정 메일 재발송 불가</span><span class="muted">성공거래건이 아님으로 구매결정 메일 재발송 불가</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">05</span><span>구매결정 메일 재발송 불가</span><span class="muted">배송정보 미등록 건으로 구매결정 메일 재발송 불가</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">06</span><span>구매결정 메일 재발송 실패</span><span class="muted">구매결정메일 재발송이 실패하였습니다.</span></li>
+
+<li class="err-row"><span class="mono">0800</span><span class="mono">07</span><span>구매결정 가능기간 초과(가맹점에 문의하시기 바랍니다)</span><span class="muted">구매결정 기간 초과(정산구매 확인건)</span></li>
+
+<li class="err-row"><span class="mono">0801</span><span class="mono">00</span><span>구매거절확인 불가 거래</span><span class="muted">구매거절확인을 할 수 없는 상태입니다</span></li>
+
+<li class="err-row"><span class="mono">0801</span><span class="mono">01</span><span>취소 요청 불가 거래</span><span class="muted">취소 요청을 할 수 없는 상태입니다</span></li>
+
+<li class="err-row"><span class="mono">0801</span><span class="mono">02</span><span>에스크로 거래는 부분취소 불가</span><span class="muted">에스크로 거래는 부분취소 불가</span></li>
+
+<li class="err-row"><span class="mono">0910</span><span class="mono">00</span><span>기타오류</span><span class="muted">내부 에러 코드 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">00</span><span>서비스 정보 에러</span><span class="muted">ServiceRule 테이블에 해당 RuleCode 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">01</span><span>서비스 정보 에러</span><span class="muted">AffiliaterInfo 테이블에 해당 데이터 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">02</span><span>서비스 정보 에러</span><span class="muted">NTTRMerchantAffiliaterInfo 테이블에 해당 데이터 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">03</span><span>서비스 정보 에러</span><span class="muted">거래 테이블에 조회 건 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">04</span><span>결과 처리 에러</span><span class="muted">승인 실패 결과 디비 업데이트 에러</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">05</span><span>결과 처리 에러</span><span class="muted">승인 실패 결과 디비 업데이트 에러</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">06</span><span>결과 처리 에러</span><span class="muted">취소 결과 디비 업데이트 에러</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">07</span><span>가맹점 등록 오류</span><span class="muted">가맹점 Terminal 정보 등록 오류</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">08</span><span>가맹점 등록 오류</span><span class="muted">가맹점 계약정보 등록 오류</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">09</span><span>가맹점 등록 오류</span><span class="muted">가맹점 원가정보 등록 오류</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">10</span><span>서비스 등록 정보 에러</span><span class="muted">무이자 등록 오류</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">11</span><span>서비스 등록 정보 에러</span><span class="muted">카드사 원가정보 등록 오류</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">12</span><span>서비스 등록 정보 에러</span><span class="muted">RM 등록정보 오류</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">14</span><span>서비스 등록 정보 에러</span><span class="muted">부분매입취소 불가 카드사 가맹점번호</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">15</span><span>가맹점 등록 오류</span><span class="muted">가맹점 원가정보(카드인증타입) 등록 오류</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">16</span><span>서비스 가능 시간이 아닙니다.</span><span class="muted">서비스 시간 아님</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">17</span><span>SMS 설정 정보 오류</span><span class="muted">SMSGW 아이디 조회 에러</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">18</span><span>승인 유효 시간 초과</span><span class="muted">SMS 발송 후 승인 유효 시간 초과</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">19</span><span>서비스 정보 에러</span><span class="muted">거래키 테이블에 조회 건 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">20</span><span>서비스 정보 에러</span><span class="muted">프로모션 대상 테이블에 추출 건 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">21</span><span>서비스 정보 에러</span><span class="muted">프로모션 마스터 테이블에 추출 건 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">22</span><span>서비스 정보 에러</span><span class="muted">프로모션 수수료 테이블에 추출 건 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">23</span><span>서비스 정보 에러</span><span class="muted">프로모션 적용카드사 테이블에 조회 및 추출 건 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">24</span><span>시스템 설정 오류</span><span class="muted">에러코드 정보 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">25</span><span>서비스 정보 에러</span><span class="muted">프로모션 상세 테이블에 조회 건 없음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">26</span><span>서비스 정보 에러</span><span class="muted">에스크로 거래건이 존재하지 않음</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">27</span><span>서비스 정보 에러</span><span class="muted">등록된 계좌 정보 불일치</span></li>
+
+<li class="err-row"><span class="mono">0911</span><span class="mono">28</span><span>직가맹 설정 정보 오류</span><span class="muted">직가맹 서비스 아님</span></li>
+
+<li class="err-row"><span class="mono">0920</span><span class="mono">00</span><span>통신에러</span><span class="muted">제휴사 Connection 오류</span></li>
+
+<li class="err-row"><span class="mono">0920</span><span class="mono">01</span><span>통신에러</span><span class="muted">제휴사 Read Time 오류</span></li>
+
+<li class="err-row"><span class="mono">0920</span><span class="mono">02</span><span>통신에러</span><span class="muted">INVALID_ACK</span></li>
+
+<li class="err-row"><span class="mono">0920</span><span class="mono">03</span><span>SMS 전송 실패</span><span class="muted">SMS 전송 실패</span></li>
+
+<li class="err-row"><span class="mono">0920</span><span class="mono">04</span><span>통신에러</span><span class="muted">제휴사 Noti 오류</span></li>
+
+<li class="err-row"><span class="mono">0921</span><span class="mono">01</span><span>처리시간 초과</span><span class="muted">프로세스 처리시간 초과</span></li>
+
+<li class="err-row"><span class="mono">1001</span><span class="mono">18</span><span>실패</span><span class="muted">대중교통 사업자 오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">01</span><span>ISP 인증 실패</span><span class="muted">거래금액상이</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">02</span><span>ISP 인증 실패</span><span class="muted">할부개월상이</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">03</span><span>ISP 인증 실패</span><span class="muted">통화코드상이</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">04</span><span>ISP 인증 실패</span><span class="muted">ISP 이용불가카드</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">05</span><span>ISP 인증 실패</span><span class="muted">가맹점번호미확인</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">06</span><span>ISP 인증 실패</span><span class="muted">인증거래미약정 가맹점</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">07</span><span>승인거절</span><span class="muted">사업자번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">08</span><span>승인거절</span><span class="muted">비밀번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">09</span><span>ISP 인증 실패</span><span class="muted">인증서효력정지</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">10</span><span>ISP 인증 실패</span><span class="muted">전자서명검증에러</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">11</span><span>승인거절</span><span class="muted">주민번호 불일치</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">12</span><span>승인거절</span><span class="muted">주민등록번호 or 비밀번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">13</span><span>ISP 인증 실패</span><span class="muted">공인인증 비밀번호</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">14</span><span>ISP 인증 실패</span><span class="muted">공인인증서 오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">15</span><span>ISP 인증 실패</span><span class="muted">통신 에러</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">16</span><span>ISP 인증 실패</span><span class="muted">카드사 시스템오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">17</span><span>ISP 인증 실패</span><span class="muted">카드사시스템점검</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">18</span><span>ISP 인증 실패</span><span class="muted">기타오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">19</span><span>ISP 인증 실패</span><span class="muted">인증서 고객 불일치</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">20</span><span>ISP 인증 실패</span><span class="muted">본인 확인 요망</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">21</span><span>ISP 인증 실패</span><span class="muted">휴대폰 인증 요망</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">22</span><span>ISP 인증 실패</span><span class="muted">2Factor인증 요망</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">23</span><span>ISP 인증 실패</span><span class="muted">VP 내부DB시스템오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">24</span><span>ISP 인증 실패</span><span class="muted">MISP 재발급요망</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">25</span><span>ISP 인증 실패</span><span class="muted">뱅킹용인증서사용</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">26</span><span>ISP 인증 실패</span><span class="muted">요청전문 오류</span></li>
+
+<li class="err-row"><span class="mono">1201</span><span class="mono">27</span><span>ISP 인증 실패</span><span class="muted">ISP 통신에러</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">01</span><span>승인 거절</span><span class="muted">ISP 승인요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">02</span><span>승인 거절</span><span class="muted">ISP 거래불가</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">03</span><span>승인 거절</span><span class="muted">이중거래임</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">04</span><span>승인 거절</span><span class="muted">승인전문오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">05</span><span>승인 거절</span><span class="muted">(인증)추후서비스 예정</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">06</span><span>승인 거절</span><span class="muted">비밀번호횟수초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">07</span><span>승인 거절</span><span class="muted">주민번호 또는 사업자번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">08</span><span>승인 거절</span><span class="muted">CAVV 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">09</span><span>승인 거절</span><span class="muted">CAVV 취소후 거래요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">10</span><span>승인 거절</span><span class="muted">이미 취소된 거래</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">11</span><span>승인 거절</span><span class="muted">이미 매입된 거래</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">12</span><span>승인 거절</span><span class="muted">원거래 없음</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">13</span><span>승인 거절</span><span class="muted">할부가맹점이 아님</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">14</span><span>승인 거절</span><span class="muted">가맹점 한도초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">15</span><span>승인 거절</span><span class="muted">재 조회요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">16</span><span>승인 거절</span><span class="muted">가맹점 해지</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">17</span><span>승인 거절</span><span class="muted">가맹점 미등록, 해지, 취소, 거래정지 가맹점</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">18</span><span>승인 거절</span><span class="muted">신용카드 아님</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">19</span><span>승인 거절</span><span class="muted">거래금액 1,000원 미만, 또는 99,999,999이상 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">20</span><span>승인 거절</span><span class="muted">거래금액 미입력</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">21</span><span>승인 거절</span><span class="muted">할부금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">22</span><span>승인 거절</span><span class="muted">카드번호 잘못입력 (Check Digit Error)</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">23</span><span>승인 거절</span><span class="muted">Data Format 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">24</span><span>승인 거절</span><span class="muted">Key-In 불가카드</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">25</span><span>승인 거절</span><span class="muted">Key-in 불가가맹점</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">26</span><span>승인 거절</span><span class="muted">유효기간 경과카드</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">27</span><span>승인 거절</span><span class="muted">거래정지카드(B/L)</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">28</span><span>승인 거절</span><span class="muted">3일 사용한도액 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">29</span><span>승인 거절</span><span class="muted">월 사용한도액 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">30</span><span>승인 거절</span><span class="muted">1회 사용한도액 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">31</span><span>승인 거절</span><span class="muted">사용 횟수 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">32</span><span>승인 거절</span><span class="muted">1일 사용한도 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">33</span><span>승인 거절</span><span class="muted">일 사용횟수 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">34</span><span>승인 거절</span><span class="muted">월 사용횟수 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">35</span><span>승인 거절</span><span class="muted">년 사용횟수 초과</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">36</span><span>승인 거절</span><span class="muted">도난, 분실카드</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">37</span><span>승인 거절</span><span class="muted">카드사 전화요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">38</span><span>승인 거절</span><span class="muted">기타 에러 처리</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">39</span><span>승인 거절</span><span class="muted">무응답 또는 지연응답시 (timeout)</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">40</span><span>승인 거절</span><span class="muted">전산장애 전화요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">41</span><span>승인 거절</span><span class="muted">할부개월수 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">42</span><span>승인 거절</span><span class="muted">할부불가</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">43</span><span>승인 거절</span><span class="muted">Service 불가카드</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">44</span><span>승인 거절</span><span class="muted">sub 몰사업자오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">45</span><span>승인 거절</span><span class="muted">할부한도초과 사용금액 수정요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">46</span><span>승인 거절</span><span class="muted">체크카드 잔액부족</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">47</span><span>승인 거절</span><span class="muted">회원 계좌 사고등록</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">48</span><span>승인 거절</span><span class="muted">승인 불가 시간(은행 전산 마감 등)</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">49</span><span>승인 거절</span><span class="muted">카드 등록 후 사용 요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">50</span><span>승인 거절</span><span class="muted">거래 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">51</span><span>승인 거절</span><span class="muted">해외카드 사용불가</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">52</span><span>승인 거절</span><span class="muted">과세/면세 거래 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">53</span><span>해외발급 카드만 사용 가능(국내발급 카드 사용 불가)</span><span class="muted">해외발급 카드만 사용 가능(국내발급 카드 사용 불가)</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">80</span><span>승인 거절</span><span class="muted">해당카드 이용불가</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">81</span><span>인증 거절</span><span class="muted">인증 서비스 불가</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">82</span><span>승인 거절</span><span class="muted">거래불가 카드</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">83</span><span>승인 거절</span><span class="muted">체크카드 승인 불가 은행 전화 요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">84</span><span>승인 거절</span><span class="muted">비밀번호 등록요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">85</span><span>승인 거절</span><span class="muted">포인트 미달</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">86</span><span>승인 거절</span><span class="muted">교체 전 카드, 신규 수령카드이용 요망</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">87</span><span>승인 거절</span><span class="muted">회원 정보 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">88</span><span>취소 실패</span><span class="muted">취소 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">89</span><span>승인 거절</span><span class="muted">자원순화보증금 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1301</span><span class="mono">90</span><span>승인 거절</span><span class="muted">지원하지 않는 결제방식</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">00</span><span>승인 거절</span><span class="muted">내부 처리 오류</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">01</span><span>승인 거절</span><span class="muted">요청 서비스 오류</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">02</span><span>승인 거절</span><span class="muted">서비스 점검중</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">03</span><span>승인 거절</span><span class="muted">일일 결제한도 초과</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">04</span><span>승인 거절</span><span class="muted">가맹점 등록 정보 오류</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">05</span><span>승인 거절</span><span class="muted">제휴사 거래 요청 실패</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">06</span><span>승인 거절</span><span class="muted">비정상 거래 요청</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">07</span><span>승인 거절</span><span class="muted">거래 요청 정보 요류</span></li>
+
+<li class="err-row"><span class="mono">1302</span><span class="mono">08</span><span>승인 거절</span><span class="muted">거래 내역 상태 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">01</span><span>승인 거절</span><span class="muted">미등록 가맹점</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">02</span><span>승인 거절</span><span class="muted">비할부 가맹점</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">03</span><span>승인 거절</span><span class="muted">불량 가맹점</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">04</span><span>승인 거절</span><span class="muted">사용불가 가맹점</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">05</span><span>승인 거절</span><span class="muted">가맹점 계약종료</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">06</span><span>승인 거절</span><span class="muted">신용판매 계약종료</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">07</span><span>승인 거절</span><span class="muted">자기 매출 불가</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">08</span><span>승인 거절</span><span class="muted">가맹점 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">09</span><span>승인 거절</span><span class="muted">KEYIN 불가</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">10</span><span>카드사무응답</span><span class="muted">카드사무응답</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">11</span><span>거래오류 확인요망</span><span class="muted">거래오류 확인요망</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">12</span><span>해당카드사 통신장애</span><span class="muted">해당카드사 통신장애</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">13</span><span>기취소된 거래임</span><span class="muted">기취소된 거래임</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">14</span><span>취소불가 거래</span><span class="muted">취소불가 거래</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">15</span><span>승인 거절</span><span class="muted">위.변조 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">16</span><span>승인 거절</span><span class="muted">승인불가 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">17</span><span>승인 거절</span><span class="muted">분실 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">18</span><span>승인 거절</span><span class="muted">카드번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">19</span><span>승인 거절</span><span class="muted">연체 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">20</span><span>승인 거절</span><span class="muted">도난 분실 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">21</span><span>승인 거절</span><span class="muted">거래 정지 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">22</span><span>승인 거절</span><span class="muted">사용 불가 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">23</span><span>승인 거절</span><span class="muted">할부 불가 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">24</span><span>승인 거절</span><span class="muted">할부 기간 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">25</span><span>승인 거절</span><span class="muted">유효기간 경과카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">26</span><span>승인 거절</span><span class="muted">거래 일자 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">27</span><span>승인 거절</span><span class="muted">회원 번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">28</span><span>승인 거절</span><span class="muted">미등록 회원번호</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">29</span><span>승인 거절</span><span class="muted">비밀번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">30</span><span>승인 거절</span><span class="muted">해당 계좌 없음</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">31</span><span>승인 거절</span><span class="muted">카드 재발급 요망</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">32</span><span>승인 거절</span><span class="muted">비밀번호오류횟수초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">33</span><span>승인 거절</span><span class="muted">주민번호/사업자번호 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">34</span><span>승인 거절</span><span class="muted">개인월간 한도초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">35</span><span>승인 거절</span><span class="muted">금액 한도초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">36</span><span>승인 거절</span><span class="muted">할부 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">37</span><span>승인 거절</span><span class="muted">거래 금액 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">38</span><span>승인 거절</span><span class="muted">소액거래 한도초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">39</span><span>승인 거절</span><span class="muted">1회 한도금액 초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">40</span><span>승인 거절</span><span class="muted">3일 한도금액 초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">41</span><span>승인 거절</span><span class="muted">이용 횟수 초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">42</span><span>승인 거절</span><span class="muted">할부 금액 한도 초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">43</span><span>승인 거절</span><span class="muted">승인요청 전문오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">44</span><span>승인 거절</span><span class="muted">ISP서비스이용불가카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">45</span><span>승인 거절</span><span class="muted">복호화에러</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">46</span><span>승인 거절</span><span class="muted">ISP재발급 후 결제요망</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">47</span><span>승인 거절</span><span class="muted">전자서명검증에러</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">48</span><span>승인 거절</span><span class="muted">중복결제</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">49</span><span>승인 거절</span><span class="muted">ISP암호화 데이터오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">50</span><span>승인 거절</span><span class="muted">공인인증서 사용요망</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">51</span><span>승인 거절</span><span class="muted">공인인증서 사용요망</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">52</span><span>승인 거절</span><span class="muted">해당카드사 시스템점검중</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">53</span><span>승인 거절</span><span class="muted">공인인증기관 통신장애</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">54</span><span>승인 거절</span><span class="muted">공인인증서 상이</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">55</span><span>승인 거절</span><span class="muted">공인인증서 폐기됨</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">56</span><span>승인 거절</span><span class="muted">공인인증서 효력정지</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">57</span><span>승인 거절</span><span class="muted">공인인증서유효성검증오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">58</span><span>승인 거절</span><span class="muted">공인인증서전문형식오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">59</span><span>승인 거절</span><span class="muted">공인인증서유효기간만료</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">60</span><span>승인 거절</span><span class="muted">공인인증서 폐기됨</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">61</span><span>승인 거절</span><span class="muted">공인인증서오류(1588-1688)</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">62</span><span>승인 거절</span><span class="muted">공인인증서사용해야하는승인건</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">63</span><span>전문오류</span><span class="muted">전문오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">64</span><span>데이터오류</span><span class="muted">데이터오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">65</span><span>데이터오류</span><span class="muted">데이터오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">66</span><span>승인 거절</span><span class="muted">모바일안전결제재발급</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">67</span><span>데이터오류</span><span class="muted">데이터오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">68</span><span>승인 거절</span><span class="muted">중복결제</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">69</span><span>데이터오류</span><span class="muted">데이터오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">70</span><span>승인 거절</span><span class="muted">30만원이상거래결제불가</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">71</span><span>데이터오류</span><span class="muted">데이터오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">72</span><span>승인 거절</span><span class="muted">통신에러</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">73</span><span>데이터오류</span><span class="muted">데이터오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">74</span><span>거래시간 초과</span><span class="muted">거래시간 초과</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">75</span><span>기타오류</span><span class="muted">기타오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">76</span><span>전화요망(02-330-5720)</span><span class="muted">전화요망(02-330-5720)</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">77</span><span>기타오류 (전화요망)</span><span class="muted">기타오류 (전화요망)</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">78</span><span>2Factor 인증요망</span><span class="muted">2Factor 인증요망</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">79</span><span>3개월게임결제없음</span><span class="muted">3개월게임결제없음</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">80</span><span>승인 거절</span><span class="muted">카드사 승인번호 누락</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">81</span><span>승인 거절</span><span class="muted">거래 불가 가맹점</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">82</span><span>승인 거절</span><span class="muted">거래 제한 업종 사용불가 카드</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">83</span><span>취소 실패</span><span class="muted">카드사 타임아웃으로 인한 취소 실패</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">84</span><span>전문오류</span><span class="muted">요청 데이터 없음</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">85</span><span>전문오류</span><span class="muted">요청 전문 복호화 오류</span></li>
+
+<li class="err-row"><span class="mono">1320</span><span class="mono">86</span><span>제휴사 오류 발생</span><span class="muted">제휴사 오류 발생</span></li>
+
+<li class="err-row"><span class="mono">9993</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[에러] 오프라인 입금액을 넣어주세요.</span></li>
+
+<li class="err-row"><span class="mono">9994</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[에러] 오프라인 입금상태를 확인해주세요.</span></li>
+
+<li class="err-row"><span class="mono">9996</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[에러] 강제취소만 가맹점 오프라인 가능</span></li>
+
+<li class="err-row"><span class="mono">9997</span><span class="mono">00</span><span>매입 취소 실패</span><span class="muted">[에러] 강제취소만 카드사 오프라인 가능</span></li>
+
+<li class="err-row"><span class="mono">9999</span><span class="mono">00</span><span>비정상 에러</span><span class="muted">알 수 없는 에러</span></li>
+
+<li class="err-row"><span class="mono">9999</span><span class="mono">10</span><span>서비스 지연입니다. 다시 시도해 주시기 바랍니다.</span><span class="muted">서비스 지연입니다. 다시 시도해 주시기 바랍니다.</span></li>
+
+<li class="err-row"><span class="mono">9999</span><span class="mono">11</span><span>서비스 지연입니다. 다시 시도해 주시기 바랍니다.</span><span class="muted">서비스 지연입니다. 다시 시도해 주시기 바랍니다.</span></li>
+
+<li class="err-row"><span class="mono">9999</span><span class="mono">96</span><span>취소 실패</span><span class="muted">JDBC Timout 발생(거래 확인 필요)</span></li>
+
+<li class="err-row"><span class="mono">9999</span><span class="mono">97</span><span>취소 실패</span><span class="muted">DB 처리 지연으로 인한 사용자 취소 발생(거래 확인 필요)</span></li>
+
+<li class="err-row"><span class="mono">9999</span><span class="mono">98</span><span>시스템 자원 사용률 증가</span><span class="muted">시스템 자원 사용률 증가</span></li>
+
+<li class="err-row"><span class="mono">9999</span><span class="mono">99</span><span>시스템 자원 사용률 증가</span><span class="muted">시스템 자원 사용률 증가</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">00</span><span>[머니]승인 거절</span><span class="muted">연결된 계좌(은행) 정보 오류</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">01</span><span>[머니]승인 거절</span><span class="muted">잔액 부족</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">02</span><span>[머니]승인 거절</span><span class="muted">1회 결제한도 초과</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">03</span><span>[머니]승인 거절</span><span class="muted">일일 결제한도 초과</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">04</span><span>[머니]승인 거절</span><span class="muted">계정 정보 오류</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">05</span><span>[머니]승인 거절</span><span class="muted">은행 통신 실패</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">06</span><span>[머니]승인 거절</span><span class="muted">제휴사 서버 에러입니다</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">07</span><span>[머니]승인 거절</span><span class="muted">은행 점검 중입니다.</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">08</span><span>[머니]승인 거절</span><span class="muted">긴급 점검중 입니다. 잠시 후 다시 시도해 주세요.</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">09</span><span>[머니]승인 거절</span><span class="muted">등록되지 않은 채널</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">10</span><span>[머니]승인 거절</span><span class="muted">결제키 정보 오류</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">11</span><span>[머니]승인 거절</span><span class="muted">결제 요청 정보 오류</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">12</span><span>[머니]승인 거절</span><span class="muted">허가되지 않은 접근입니다</span></li>
+
+<li class="err-row"><span class="mono">M100</span><span class="mono">13</span><span>[머니]승인 거절</span><span class="muted">중복 거래 요청(다른 거래 존재)</span></li>
+
+<li class="err-row"><span class="mono">M101</span><span class="mono">00</span><span>[머니]취소 실패</span><span class="muted">취소 가능 금액 초과</span></li>
+
+<li class="err-row"><span class="mono">M101</span><span class="mono">01</span><span>[머니]취소 실패</span><span class="muted">취소 불가 거래</span></li>
+
+</ul>
+
+<div data-when="errMore" hidden><button type="button" class="btn btn-secondary btn-sm" data-act="showMoreErr">더 보기</button></div>
+
+
+</section>
+
+<section id="d-support" class="doc-sec" aria-labelledby="dh-support">
+<h2 id="dh-support" class="h2">샘플 코드 · 연동 문의</h2>
+
+<div class="cta">
+<div class="stack g4"><h3 class="h3">연동 중 막히는 부분이 있나요?</h3><p class="muted small">PHP 샘플 코드와 연동 문서는 기술 문의로 요청할 수 있습니다.</p></div>
+<div class="btn-row">
+<a class="btn btn-primary" href="contact.html?type=tech">기술 문의</a>
+<a class="btn btn-secondary" href="onboarding.html">도입 절차 보기</a>
+</div>
+</div>
+</section>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</main>
+
+<footer class="ftr">
+<div class="wrap">
+<div class="ftr-grid">
+<div class="stack g12">
+<a class="logo" href="index.html" aria-label="Link Payment 홈으로">
+<svg class="logo-stack" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 289 120" fill="currentColor" aria-hidden="true">
+<path d="M149.118 3.04347H164.765L153.392 56.5217H175.124L173.349 62.5725C172.154 66.6667 168.387 69.4928 164.113 69.4928H135.137L149.118 3.04347Z"></path>
+<path d="M198.522 15.7246H205.006L193.633 69.4928H178.167L187.692 24.4928C188.779 19.3841 193.307 15.6884 198.522 15.6884V15.7246ZM192.836 0.0362396H208.302L207.215 5.18116C206.346 9.38406 202.615 12.3913 198.341 12.3913H190.264L192.872 0L192.836 0.0362396Z"></path>
+<path d="M207.613 30.8696C209.099 23.6956 210.402 16.9928 210.62 15.6884H225.687C225.579 16.5942 225.289 18.8768 225.072 19.8913C226.955 17.6812 229.961 14.8913 235.431 14.8913C243.399 14.8913 245.5 20.3623 243.797 28.1522L235.105 69.4565H219.53L227.498 31.4493C227.897 29.7464 228.114 27.5725 226.194 27.5725C224.383 27.5725 223.405 28.8768 222.717 32.0652L214.821 69.4928H199.355L207.541 30.8696H207.613Z"></path>
+<path d="M262.559 37.3551H263.066C266.254 30.9783 270.745 21.1957 273.244 15.6884H289C285.306 21.9928 280.416 29.8551 277.228 35.2536C277.12 46.0145 278.025 58.1884 278.025 69.4928H262.958C263.066 63.4058 263.066 54.7102 263.066 49.8188C261.581 52.4275 259.082 56.0145 258.467 56.9203L255.786 69.4928H240.719L255.388 0.0362396H270.455L262.559 37.3551Z"></path>
+<path d="M127.458 0.0362396L105.292 22.2101H33.2138V21.8478C33.2138 9.78261 42.9933 0 55.0545 0H127.458V0.0362396Z"></path>
+<path d="M92.7234 49.7826C92.7234 49.7826 92.651 49.9638 92.5423 49.9638H5.50547L27.6721 27.7899H70.7016C82.8353 27.7899 92.6872 37.6449 92.6872 49.7826H92.7234Z"></path>
+<path d="M121.917 55.5073L99.7501 77.6812H55.2356C43.1019 77.6812 33.25 67.8261 33.25 55.6884C33.25 55.5797 33.3225 55.5073 33.4311 55.5073H121.953H121.917Z"></path>
+<path d="M92.7234 83.2247C92.7234 89.3478 90.2242 94.8913 86.24 98.913C82.2196 102.935 76.6779 105.399 70.5567 105.399H0L22.1667 83.2247H92.7234Z"></path>
+<path d="M141.62 78.3333C138.904 78.3333 137.238 79.7464 136.043 81.7029C136.332 80.4348 136.477 79.2029 136.513 78.8044H132.493C132.167 80.6884 131.588 83.442 130.682 87.6087L123.873 119.565H128.002L130.718 106.812C131.189 108.152 132.167 109.746 135.246 109.746C140.063 109.746 142.2 105.906 143.504 99.6739L145.931 88.1522C147.09 82.7536 146.365 78.3333 141.62 78.3333ZM141.765 88.2246L139.266 99.8913C138.542 103.261 137.455 106.051 134.811 106.051C131.298 106.051 131.66 102.428 132.457 98.587L134.34 89.7102C135.246 85.3986 136.513 81.8841 139.701 81.8841C142.562 81.8841 142.49 84.7826 141.765 88.1884V88.2246Z"></path>
+<path d="M160.564 78.3333C154.37 78.3333 153.211 82.7174 152.378 86.6667L152.305 87.0652H156.362L156.543 86.3768C157.231 83.5507 157.811 81.7029 160.165 81.7029C162.52 81.7029 163.063 83.2971 162.411 86.2319L161.433 90.7971C160.998 90.8696 160.636 90.9058 160.238 90.9783C153.175 92.1015 149.734 94.0942 148.321 100.761C147.343 105.435 148.213 109.746 152.704 109.746C155.058 109.746 156.652 109.058 158.137 106.558C157.956 107.464 157.811 108.514 157.702 109.275H161.723C161.868 108.225 162.556 104.819 162.954 102.935L166.54 85.9058C167.518 81.2681 165.671 78.3333 160.564 78.3333ZM159.948 97.9348C158.825 103.37 157.34 106.051 154.624 106.051C152.124 106.051 151.798 103.659 152.45 100.688C153.428 96.4131 155.565 95.1449 159.694 94.3841C160.057 94.3116 160.419 94.2754 160.781 94.2029L159.948 97.971V97.9348Z"></path>
+<path d="M184.795 78.8044C181.789 86.3768 176.935 98.8406 175.197 104.348H175.124C175.522 101.051 175.848 87.9348 176.03 78.8044H171.937L171.792 110.217C169.764 115.072 168.858 116.123 166.757 116.123C165.779 116.123 165.345 115.978 164.874 115.906L164.005 119.674C164.693 119.855 165.816 120 166.685 120C170.053 120 172.154 119.529 175.704 110.942L188.96 78.8044H184.722H184.795Z"></path>
+<path d="M212.721 78.3333C210.004 78.3333 208.012 79.7464 206.708 81.6304C206.418 79.529 205.042 78.3333 202.724 78.3333C200.406 78.3333 198.522 79.3841 197.218 81.558C197.399 80.7247 197.581 79.4928 197.689 78.8406H193.705C193.415 80.3261 193.089 82.1015 191.93 87.6087L187.33 109.312H191.459L195.951 88.0797C196.639 84.8551 198.015 81.9203 200.659 81.9203C202.579 81.9203 203.195 83.0797 202.398 86.6667L197.617 109.312H201.818L206.346 87.8623C207.034 84.7102 208.302 81.9203 210.91 81.9203C213.264 81.9203 213.336 83.8044 212.829 86.413L207.939 109.312H212.105L217.103 85.7609C218.262 80.2174 215.799 78.3333 212.684 78.3333H212.721Z"></path>
+<path d="M231.374 78.3333C225.18 78.3333 223.587 83.2609 222.609 88.0435L220.291 98.9493C219.204 104.167 219.24 109.746 226.122 109.746C232.352 109.746 233.656 105.29 234.597 101.232L234.779 100.435H230.686L230.505 101.268C229.925 103.949 229.092 106.268 226.52 106.268C223.587 106.268 223.442 103.478 224.202 99.9638C224.383 99.058 225.108 95.5797 225.289 94.8551H236.046C236.264 94.0218 237.278 89.0942 237.459 88.3333C238.473 83.6594 238.183 78.3333 231.374 78.3333ZM233.728 87.029C233.583 87.6449 232.931 90.7609 232.786 91.413H226.013L226.919 87.2464C227.462 84.6015 228.368 81.6667 231.157 81.6667C233.945 81.6667 234.308 84.1305 233.728 86.9928V87.029Z"></path>
+<path d="M254.808 78.3333C252.056 78.3333 250.208 79.6377 248.868 81.6304C249.158 80.3623 249.267 79.4565 249.375 78.8406H245.355C245.101 80.145 244.739 81.9928 243.435 88.116L238.944 109.312H243.073L247.383 89.1667C248.47 83.8768 250.281 81.9203 252.707 81.9203C255.134 81.9203 255.533 83.587 254.917 86.5217L250.1 109.312H254.229L259.263 85.5797C260.314 80.6159 258.141 78.3333 254.808 78.3333Z"></path>
+<path d="M272.121 78.8044L272.991 74.8913H268.898L268.029 78.8044H264.588L263.827 82.3913H267.195L262.559 103.804C261.545 108.442 263.682 109.674 266.761 109.674C267.992 109.674 269.007 109.565 269.984 109.275L270.709 106.015C270.057 106.123 269.369 106.232 268.572 106.232C266.725 106.232 266.435 105.217 266.87 103.116L271.397 82.3913H275.562L276.323 78.8044H272.121Z"></path>
+</svg>
+</a>
+<p class="muted small">가맹점의 판매 환경에 맞는 전자결제 서비스와 운영 솔루션</p>
+</div>
+<div>
+<dl class="ftr-info">
+<div><dt>법인명</dt><dd>주식회사 링크페이먼트</dd></div>
+<div><dt>대표이사</dt><dd>석우정</dd></div>
+<div><dt>사업자등록번호</dt><dd>524-88-02327</dd></div>
+<div><dt>전자지급결제대행업 등록번호</dt><dd>02-004-00202</dd></div>
+<div><dt>주소</dt><dd>서울특별시 서초구 바우뫼로 200, 월드브릿지 빌딩 2층</dd></div>
+<div><dt>대표전화</dt><dd><a href="tel:1522-9665">1522-9665</a></dd></div>
+<div><dt>이메일</dt><dd><a href="mailto:support@linkpayment.co.kr">support@linkpayment.co.kr</a></dd></div>
+</dl>
+<nav class="ftr-links" aria-label="정책 및 공시">
+<a href="trust.html#notices">정산자금 보호 공시</a>
+<a href="privacy.html">개인정보 처리방침</a>
+<a href="company.html">회사소개</a>
+<a href="developers.html">API 연동 매뉴얼</a>
+</nav>
+<p class="ftr-copy">© Link Payment Co., Ltd.</p>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body>
+</html>
