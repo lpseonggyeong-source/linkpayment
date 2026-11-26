@@ -59,6 +59,10 @@ assets/data/card-error-codes.json   에러 코드 원본 데이터(참고용)
 **에러 코드 목록 (developers.html)**
 목록이 HTML에 모두 들어 있습니다(`<ul class="err-list">`). 검색과 '더 보기'는 site.js가 처리합니다.
 
+**링크 공유 썸네일**
+카카오톡·슬랙 등에 링크를 붙였을 때 보이는 이미지는 `assets/img/og-image.jpg`(1200×630)입니다. 같은 이름으로 덮어쓰면 바뀝니다.
+각 HTML의 `og:image`·`og:url`은 `https://www.linkpayment.co.kr/` 기준 주소라, 다른 도메인에 올리면 그 주소로 바꿔야 썸네일이 보입니다. 메신저는 이미지를 캐시하므로, 바꾼 뒤 바로 반영되지 않으면 각 서비스의 캐시 초기화 도구를 쓰세요.
+
 ## 동작 규칙 (site.js)
 
 HTML의 속성으로 동작을 연결합니다. 이 속성은 지우지 마세요.
